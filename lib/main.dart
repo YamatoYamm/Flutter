@@ -1,4 +1,4 @@
-import '01/guessNumber.dart' as app;
+import '01/numberShapes.dart' as app;
 
 void main() {
   app.main();
