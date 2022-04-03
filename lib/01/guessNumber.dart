@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 void main() {
-  runApp(FlutterApp());
+  runApp(const FlutterApp());
 }
 
 class FlutterApp extends StatelessWidget {
@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
   String _number = (Random().nextInt(100)+1).toString();
   String _buttonText = 'Guess';
   final TextEditingController _controller = TextEditingController();
-  bool _enabled = true;
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +76,8 @@ class _HomePageState extends State<HomePage> {
                   clipBehavior: Clip.antiAlias,
                   child: Column(
                     children: <Widget>[
-                      ListTile(
-                        title: const Text(
+                      const ListTile(
+                        title: Text(
                           "Try a number !",
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -92,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                         child: TextFormField(
                           enabled: true,
                           controller: _controller,
-                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                          keyboardType: const TextInputType.numberWithOptions(),
                         ),
                       ),
                       ButtonBar(
@@ -113,10 +112,11 @@ class _HomePageState extends State<HomePage> {
                                           _message = "You tried ${_controller.text}, you guessed right.";
                                           showDialog();
                                         }
-                                        else if(int.parse(_controller.text) > int.parse(_number))
+                                        else if(int.parse(_controller.text) > int.parse(_number)) {
                                           _message = "You tried ${_controller.text}, try lower";
-                                        else if(int.parse(_controller.text) < int.parse(_number))
+                                        } else if(int.parse(_controller.text) < int.parse(_number)) {
                                           _message = "You tried ${_controller.text}, try higher";
+                                        }
                                       });
                                     _controller.text = '';
                                   }
@@ -125,6 +125,7 @@ class _HomePageState extends State<HomePage> {
                                       _message = '';
                                       _buttonText = 'Guess';
                                       _number = (Random().nextInt(100)+1).toString();
+                                      // nu stiu sa dau disable la texformfield dupa ce apas ok
                                     });
                                   }
                                 },
@@ -149,11 +150,11 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (context) {
         return CupertinoAlertDialog(
-          title: Text("You guessed right"),
+          title: const Text("You guessed right"),
           content: Text("It was ${_number}"),
           actions: [
             CupertinoDialogAction(
-                child: Text("Try again!"),
+                child: const Text("Try again!"),
                 onPressed: ()
                 {
                   Navigator.of(context).pop();
@@ -165,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                 }
             ),
             CupertinoDialogAction(
-              child: Text("OK"),
+              child: const Text("OK"),
               onPressed: (){
                 Navigator.of(context).pop();
                 _buttonText = 'Reset';
